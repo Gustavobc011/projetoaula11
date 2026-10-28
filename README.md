@@ -35,7 +35,7 @@ projetoaula11/
 Abra o `index.html` no navegador e use o menu para ir até Visita e voltar.
 Todos os caminhos são relativos (`css/estilo.css`, `imagens/...`, `visita.html`), então a pasta funciona em qualquer computador.
 
-Versão publicada: `https://gustavobc011.github.io/projetoaula11/` *(endereço a confirmar depois da publicação)*
+Versão publicada (GitHub Pages): https://gustavobc011.github.io/projetoaula11/
 
 ## Tamanhos de tela escolhidos (viewport)
 
