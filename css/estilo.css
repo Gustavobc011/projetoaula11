@@ -1,0 +1,340 @@
+/* =========================================================
+   ESTILO BASE (vale para todas as larguras)
+   As media queries ficam mais abaixo e ajustam só o que muda.
+   ========================================================= */
+
+/* Cores do site guardadas em variáveis para manter o mesmo padrão nas duas páginas */
+:root {
+    --verde-escuro: #1f4d36;   /* títulos, links e botão */
+    --texto: #1e2b24;          /* texto comum */
+    --fundo: #fbfaf5;          /* fundo da página */
+    --fundo-faixa: #e2ece4;    /* cabeçalho e rodapé */
+    --fundo-bloco: #edf2ec;    /* blocos da página Visita */
+    --foco: #b34700;           /* contorno laranja do foco no Tab */
+}
+
+/* Faz padding e borda contarem dentro da largura (evita rolagem horizontal) */
+* {
+    box-sizing: border-box;
+}
+
+/* FLEX: body em coluna (header, main, footer) para o rodapé ficar sempre no fim da tela */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--texto);
+    background-color: var(--fundo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* A imagem nunca passa da largura disponível e mantém a proporção */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+/* CONTÊINER FLEX 1: cabeçalho
+   Filhos diretos: .logo (nome do espaço) e nav (menu).
+   space-between empurra um para cada lado; flex-wrap deixa o menu
+   descer para a linha de baixo se faltar espaço. */
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 24px;
+    padding: 16px 20px;
+    background-color: var(--fundo-faixa);
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--verde-escuro);
+}
+
+/* FLEX: itens do menu (Início e Visita) lado a lado */
+nav ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: inline-block;
+    padding: 4px 2px;
+    color: var(--verde-escuro);
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Página atual: negrito + linha embaixo (não depende só da cor) */
+nav a[aria-current="page"] {
+    font-weight: bold;
+    border-bottom: 3px solid currentColor;
+}
+
+/* Foco visível ao navegar com Tab, em todos os links */
+a:focus-visible {
+    outline: 3px solid var(--foco);
+    outline-offset: 3px;
+}
+
+/* ---------- Conteúdo ---------- */
+
+/* main ocupa o espaço que sobra (empurra o rodapé para baixo)
+   e limita a largura para as linhas de texto não ficarem longas demais */
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+}
+
+h1 {
+    font-size: 1.7rem;
+    line-height: 1.25;
+    color: var(--verde-escuro);
+    margin: 0 0 16px;
+}
+
+h2 {
+    color: var(--verde-escuro);
+}
+
+p {
+    margin: 0 0 16px;
+}
+
+/* Link "Planeje sua visita" com aparência de botão */
+.convite {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: var(--verde-escuro);
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.convite:hover {
+    text-decoration: underline;
+}
+
+/* Espaço entre a imagem do #div2 e o texto (celular e tablet) */
+#div2 img {
+    margin-bottom: 16px;
+}
+
+/* ---------- Página Visita ---------- */
+
+/* CONTÊINER FLEX 3: blocos de Visita
+   Filhos diretos: os três .bloco.
+   flex-wrap permite quebrar linha; a quantidade por linha
+   é definida em cada media query pelo flex-basis do .bloco. */
+#blocos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 24px 0;
+}
+
+.bloco {
+    flex: 1 1 100%;   /* padrão: cada bloco ocupa a linha inteira */
+    padding: 16px 20px;
+    border-radius: 10px;
+    background-color: var(--fundo-bloco);
+}
+
+.bloco h2 {
+    font-size: 1.2rem;
+    margin: 0 0 8px;
+}
+
+.bloco p {
+    margin: 0 0 4px;
+}
+
+.voltar {
+    display: inline-block;
+    font-weight: bold;
+    color: var(--verde-escuro);
+}
+
+/* ---------- Rodapé ---------- */
+
+footer {
+    padding: 16px 20px;
+    background-color: var(--fundo-faixa);
+    font-size: 0.95rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   BREAKPOINTS (media queries)
+   Celular: até 480px | Tablet: acima de 480px e abaixo de 1280px | Desktop: 1280px ou mais
+   ========================================================= */
+
+/* BREAKPOINT CELULAR: até 480px */
+@media (max-width: 480px) {
+    /* body {background-color: blue;}  cor de teste da aula, desativada */
+    #div1 img{
+        display: none;
+    }
+
+    #div2 img{
+        display: block;
+    }
+    
+    /*Celular*/
+
+    /* Cabeçalho em coluna: nome em cima, menu embaixo.
+       Com column o eixo principal fica vertical, então quem
+       alinha à esquerda passa a ser o align-items. */
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Botão ocupa a largura toda: mais fácil de tocar com o dedo */
+    .convite {
+        display: block;
+        text-align: center;
+    }
+
+    /* Blocos de Visita empilhados, um embaixo do outro */
+    #blocos {
+        flex-direction: column;
+    }
+
+}
+
+
+/* BREAKPOINT TABLET: logo acima de 480px até logo abaixo de 1280px
+   (antes era 481px a 1279px: larguras quebradas, como 480,8px com zoom
+   ou escala do Windows em 125%, caíam no buraco e nenhuma regra valia) */
+@media (min-width: 480.02px) and (max-width: 1279.98px) {
+    /* body {background-color: red;}  cor de teste da aula, desativada */
+    #div1 img{
+        display: none;
+    }
+
+    #div2 img{
+        display: block;
+    }
+
+    
+    /*Tablet*/
+
+    /* Cabeçalho em linha: nome à esquerda, menu à direita (vem do estilo base) */
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    main {
+        padding: 32px 40px 48px;
+    }
+
+    /* Mesma margem lateral do main, para alinhar cabeçalho e rodapé com o conteúdo */
+    header,
+    footer {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    /* Blocos de Visita em duas colunas; o terceiro desce para a linha de baixo.
+       flex-grow 0 impede o terceiro de esticar até a largura toda.
+       calc(50% - 10px) desconta metade do gap de 20px. */
+    .bloco {
+        flex: 0 1 calc(50% - 10px);
+    }
+
+
+}
+
+
+/* BREAKPOINT DESKTOP: 1280px ou mais */
+@media (min-width: 1280px) {
+    /* body {background-color: yellow;}  cor de teste da aula, desativada */
+    #div1 img{
+        display: block;
+    }
+
+    #div2{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #div2 img{
+        display: none;
+    }
+
+    section{
+        display: flex;
+    }
+
+
+    /*Desktop*/
+
+    /* CONTÊINER FLEX 2: section da página Início (regra "section" acima, da aula)
+       Filhos diretos: #div1 (imagem) e #div2 (textos), lado a lado.
+       Aqui só dividimos o espaço igualmente e separamos com gap. */
+    section {
+        gap: 48px;
+    }
+
+    #div1,
+    #div2 {
+        flex: 1;
+    }
+
+    /* #div2 é flex em coluna (regra da aula acima); o botão não deve
+       esticar até a largura toda, então fica alinhado ao início */
+    #div2 .convite {
+        align-self: flex-start;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    main {
+        padding: 40px 40px 56px;
+    }
+
+    /* O main fica centralizado com no máximo 1200px (texto com 1120px úteis).
+       Esta conta alinha nome e menu com a borda do texto em telas largas;
+       max() garante pelo menos 40px de margem. */
+    header,
+    footer {
+        padding-left: max(40px, calc((100% - 1120px) / 2));
+        padding-right: max(40px, calc((100% - 1120px) / 2));
+    }
+
+    /* Três blocos de Visita dividindo a mesma linha em partes iguais */
+    .bloco {
+        flex: 1 1 0;
+    }
+}
